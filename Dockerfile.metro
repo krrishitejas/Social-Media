@@ -1,0 +1,22 @@
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install React Native CLI and Metro
+RUN npm install --legacy-peer-deps -g react-native-cli @react-native-community/cli
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --legacy-peer-deps
+
+# Copy source code
+COPY . .
+
+# Expose Metro port
+EXPOSE 8081
+
+# Start Metro bundler
+CMD ["npx", "react-native", "start"]
